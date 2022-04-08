@@ -24,9 +24,10 @@ jobs:
         run: npm run build
       - name: Print secrets
         run: |
-          echo ${{secrets.SURGE_LOGIN}}
-          echo ${{secrets.SURGE_TOKEN}}
+          echo ${{ secrets.SURGE_LOGIN }}
+          echo ${{ secrets.SURGE_TOKEN }}
       - name: Install Surge
+        if: github.event_name == 'push'
         run: npm install -g surge
       - name: Deploy to Staging
         if: github.event_name == 'push'
