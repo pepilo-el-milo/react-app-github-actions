@@ -22,9 +22,8 @@ jobs:
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
+      - name: Install Surge
+        run: npm install -g surge
       - name: Deploy to Staging
         if: github.event_name == 'push'
-        run: npx surge --project ./build --domain obedient-fall.surge.sh
-        env:
-          SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
-          SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
+        run: surge ./build https://obedient-fall.surge.sh/ --token ${{secrets.SURGE_LOGIN}}
